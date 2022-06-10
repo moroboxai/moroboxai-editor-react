@@ -4,7 +4,13 @@ import Editor from '../../lib/es';
 
 function App() {
     return (
-        <Editor />
+        <Editor
+            value={'function a() {\n  console.log("test");\n}\n'}
+            width='500px'
+            height='400px'
+            language='javascript'
+            onLoad={(data) => {console.log(data);}}
+            onUnload={() => {console.log("unload");}} />
     );
 }
 

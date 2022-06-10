@@ -2,7 +2,13 @@ import React from "react";
 import EditorContainer from '../EditorContainer';
 
 type EditorProps = {
+    className?: string,
+    language?: string,
     value?: string,
+    width?: string,
+    height?: string,
+    onLoad?: (value: string) => void,
+    onUnload?: () => void,
 };
 
 type EditorState = {};

@@ -10,6 +10,8 @@ html, body {
     height: 100%;
 }
 
-.mai-player {
-    background-color: black;
+.mai-editor {
+    border-radius: 1em;
+    box-shadow: 4px 4px 8px rgb(0 0 0 / 50%);
+    overflow: hidden;
 }
