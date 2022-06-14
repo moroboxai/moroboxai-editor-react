@@ -27,8 +27,8 @@ class EditorContainer extends React.Component<EditorContainerProps, EditorContai
             element: this.props._ref.current!,
             language: this.props.language,
             value: this.props.value,
-            width: this.props.width,
-            height: this.props.height,
+            width: '100%',
+            height: '100%',
             onLoad: this.props.onLoad,
             onUnload: this.props.onUnload,
         }) as IEditor;
@@ -45,6 +45,7 @@ class EditorContainer extends React.Component<EditorContainerProps, EditorContai
         return (
             <div
                 className={"mai-editor " + (this.props.className || "")}
+                style={{width: this.props.width, height: this.props.height}}
                 ref={this.props._ref}/>
         );
     }
