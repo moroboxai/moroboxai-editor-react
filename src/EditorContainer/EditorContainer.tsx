@@ -1,37 +1,38 @@
 import React from "react";
-import { IEditor, init as _init } from "moroboxai-editor-web";
+import * as MoroboxAIEditor from "moroboxai-editor-web";
+import { init as _init } from "moroboxai-editor-web";
 
 type EditorContainerProps = {
-    className?: string,
-    language?: string,
-    value?: string,
-    width?: string,
-    height?: string,
-    onLoad?: (value: string) => void,
-    onUnload?: () => void,
-    _ref: React.RefObject<HTMLDivElement>
+    className?: string;
+    language?: MoroboxAIEditor.Language;
+    url?: string;
+    value?: string;
+    width?: string;
+    height?: string;
+    onLoad?: (language: MoroboxAIEditor.Language, value: string) => void;
+    onUnload?: () => void;
+    _ref: React.RefObject<HTMLDivElement>;
 };
 
 type EditorContainerState = {};
 
-class EditorContainer extends React.Component<EditorContainerProps, EditorContainerState> {
-    static propTypes: any;
-    private _editor?: IEditor;
-
-    constructor(props: any) {
-        super(props);
-    }
+class EditorContainer extends React.Component<
+    EditorContainerProps,
+    EditorContainerState
+> {
+    private _editor?: MoroboxAIEditor.IEditor;
 
     componentDidMount(): void {
         this._editor = _init({
             element: this.props._ref.current!,
             language: this.props.language,
+            url: this.props.url,
             value: this.props.value,
-            width: '100%',
-            height: '100%',
+            width: "100%",
+            height: "100%",
             onLoad: this.props.onLoad,
-            onUnload: this.props.onUnload,
-        }) as IEditor;
+            onUnload: this.props.onUnload
+        }) as MoroboxAIEditor.IEditor;
     }
 
     componentWillUnmount(): void {
@@ -42,15 +43,28 @@ class EditorContainer extends React.Component<EditorContainerProps, EditorContai
     }
 
     render() {
+        const _props: {
+            "data-url"?: string;
+            style: React.CSSProperties;
+        } = {
+            style: {
+                width: this.props.width,
+                height: this.props.height
+            }
+        };
+
+        if (this.props.url !== undefined) {
+            _props["data-url"] = this.props.url;
+        }
+
         return (
             <div
                 className={"mai-editor " + (this.props.className || "")}
-                style={{width: this.props.width, height: this.props.height}}
-                ref={this.props._ref}/>
+                ref={this.props._ref}
+                {..._props}
+            />
         );
     }
 }
-
-EditorContainer.propTypes = {};
 
 export default EditorContainer;

@@ -1,23 +1,24 @@
 import React from "react";
-import EditorContainer from '../EditorContainer';
+import EditorContainer from "../EditorContainer";
+import type { Language } from "moroboxai-editor-web";
 
 type EditorProps = {
-    className?: string,
-    language?: string,
-    value?: string,
-    width?: string,
-    height?: string,
-    onLoad?: (value: string) => void,
-    onUnload?: () => void,
+    className?: string;
+    language?: Language;
+    url?: string;
+    value?: string;
+    width?: string;
+    height?: string;
+    onLoad?: (language: Language, value: string) => void;
+    onUnload?: () => void;
 };
 
 type EditorState = {};
 
 class Editor extends React.Component<EditorProps, EditorState> {
-    static propTypes: any;
     private _refContainer: React.RefObject<HTMLDivElement>;
 
-    constructor(props: any) {
+    constructor(props: EditorProps | Readonly<EditorProps>) {
         super(props);
         //this.state = {};
 
@@ -25,12 +26,8 @@ class Editor extends React.Component<EditorProps, EditorState> {
     }
 
     render() {
-        return <EditorContainer
-            _ref={this._refContainer}
-            {...this.props}/>
+        return <EditorContainer _ref={this._refContainer} {...this.props} />;
     }
 }
-
-Editor.propTypes = {};
 
 export default Editor;
