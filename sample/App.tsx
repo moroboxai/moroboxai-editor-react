@@ -44,6 +44,7 @@ class App extends React.Component<AppProps, AppState> {
         const editor = attached ? (
             <Editor
                 url="https://raw.githubusercontent.com/moroboxai/moroboxai-games/master/pong/agent.*"
+                language="lua"
                 width="500px"
                 height="400px"
                 onLoad={this.handleLoad}
