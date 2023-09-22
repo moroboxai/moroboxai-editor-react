@@ -18,6 +18,7 @@ class App extends React.Component<AppProps, AppState> {
 
         this.handleLoad = this.handleLoad.bind(this);
         this.handleUnload = this.handleUnload.bind(this);
+        this.handleLanguageChanged = this.handleLanguageChanged.bind(this);
         this.handleAttach = this.handleAttach.bind(this);
     }
 
@@ -29,6 +30,10 @@ class App extends React.Component<AppProps, AppState> {
         console.log("unload");
     }
 
+    handleLanguageChanged(language: Language) {
+        console.log("selected language", language);
+    }
+
     handleAttach() {
         this.setState({ attached: !this.state.attached });
     }
@@ -38,11 +43,12 @@ class App extends React.Component<AppProps, AppState> {
 
         const editor = attached ? (
             <Editor
-                url="https://raw.githubusercontent.com/moroboxai/moroboxai-games/master/piximoroxel8ai-sample/sample/agent.js"
+                url="https://raw.githubusercontent.com/moroboxai/moroboxai-games/master/pong/agent.*"
                 width="500px"
                 height="400px"
                 onLoad={this.handleLoad}
                 onUnload={this.handleUnload}
+                onLanguageChanged={this.handleLanguageChanged}
             />
         ) : (
             <></>

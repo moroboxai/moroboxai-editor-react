@@ -5,12 +5,14 @@ import { init as _init } from "moroboxai-editor-web";
 type EditorContainerProps = {
     className?: string;
     language?: MoroboxAIEditor.Language;
-    url?: string;
-    value?: string;
+    url?: string | MoroboxAIEditor.IURLFactory;
+    value?: string | MoroboxAIEditor.IValueFactory;
     width?: string;
     height?: string;
-    onLoad?: (language: MoroboxAIEditor.Language, value: string) => void;
-    onUnload?: () => void;
+    onLoad?: MoroboxAIEditor.OnLoadCallback;
+    onUnload?: MoroboxAIEditor.OnUnloadCallback;
+    onLanguageChanged?: MoroboxAIEditor.OnLanguageChangedCallback;
+    aceOptions?: any;
     _ref: React.RefObject<HTMLDivElement>;
 };
 
@@ -28,10 +30,12 @@ class EditorContainer extends React.Component<
             language: this.props.language,
             url: this.props.url,
             value: this.props.value,
-            width: "100%",
-            height: "100%",
+            width: this.props.width,
+            height: this.props.height,
             onLoad: this.props.onLoad,
-            onUnload: this.props.onUnload
+            onUnload: this.props.onUnload,
+            onLanguageChanged: this.props.onLanguageChanged,
+            aceOptions: this.props.aceOptions
         }) as MoroboxAIEditor.IEditor;
     }
 
@@ -43,25 +47,10 @@ class EditorContainer extends React.Component<
     }
 
     render() {
-        const _props: {
-            "data-url"?: string;
-            style: React.CSSProperties;
-        } = {
-            style: {
-                width: this.props.width,
-                height: this.props.height
-            }
-        };
-
-        if (this.props.url !== undefined) {
-            _props["data-url"] = this.props.url;
-        }
-
         return (
             <div
                 className={"mai-editor " + (this.props.className || "")}
                 ref={this.props._ref}
-                {..._props}
             />
         );
     }
