@@ -2,17 +2,8 @@ import React from "react";
 import EditorContainer from "../EditorContainer";
 import * as MoroboxAIEditor from "moroboxai-editor-web";
 
-type EditorProps = {
+type EditorProps = MoroboxAIEditor.EditorOptions & {
     className?: string;
-    language?: MoroboxAIEditor.Language;
-    url?: string | MoroboxAIEditor.IURLFactory;
-    value?: string | MoroboxAIEditor.IValueFactory;
-    width?: string;
-    height?: string;
-    onLoad?: MoroboxAIEditor.OnLoadCallback;
-    onUnload?: MoroboxAIEditor.OnUnloadCallback;
-    onLanguageChanged?: MoroboxAIEditor.OnLanguageChangedCallback;
-    aceOptions?: any;
 };
 
 type EditorState = {};

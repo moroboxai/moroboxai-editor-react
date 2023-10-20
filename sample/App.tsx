@@ -1,5 +1,5 @@
 import React from "react";
-import type { Language } from "moroboxai-editor-web";
+import type { Language, OnRunOptions } from "moroboxai-editor-sdk";
 import Editor from "../src";
 
 import "./App.css";
@@ -16,18 +16,18 @@ class App extends React.Component<AppProps, AppState> {
 
         this.state = { attached: true };
 
-        this.handleLoad = this.handleLoad.bind(this);
-        this.handleUnload = this.handleUnload.bind(this);
+        this.handleRun = this.handleRun.bind(this);
+        this.handleStop = this.handleStop.bind(this);
         this.handleLanguageChanged = this.handleLanguageChanged.bind(this);
         this.handleAttach = this.handleAttach.bind(this);
     }
 
-    handleLoad(language: Language, code: string) {
-        console.log("load", language, code);
+    handleRun(options: OnRunOptions) {
+        console.log("run", options);
     }
 
-    handleUnload() {
-        console.log("unload");
+    handleStop() {
+        console.log("stop");
     }
 
     handleLanguageChanged(language: Language) {
@@ -47,8 +47,8 @@ class App extends React.Component<AppProps, AppState> {
                 language="lua"
                 width="500px"
                 height="400px"
-                onLoad={this.handleLoad}
-                onUnload={this.handleUnload}
+                onRun={this.handleRun}
+                onStop={this.handleStop}
                 onLanguageChanged={this.handleLanguageChanged}
             />
         ) : (
@@ -65,8 +65,7 @@ class App extends React.Component<AppProps, AppState> {
                         {attached ? "Detach Editor" : "Attach Editor"}
                     </button>
                 </div>
-                <div className="info">
-                </div>
+                <div className="info"></div>
             </>
         );
     }

@@ -1,18 +1,10 @@
 import React from "react";
+import * as MoroboxAIEditorSDK from "moroboxai-editor-sdk";
 import * as MoroboxAIEditor from "moroboxai-editor-web";
 import { init as _init } from "moroboxai-editor-web";
 
-type EditorContainerProps = {
+type EditorContainerProps = MoroboxAIEditor.EditorOptions & {
     className?: string;
-    language?: MoroboxAIEditor.Language;
-    url?: string | MoroboxAIEditor.IURLFactory;
-    value?: string | MoroboxAIEditor.IValueFactory;
-    width?: string;
-    height?: string;
-    onLoad?: MoroboxAIEditor.OnLoadCallback;
-    onUnload?: MoroboxAIEditor.OnUnloadCallback;
-    onLanguageChanged?: MoroboxAIEditor.OnLanguageChangedCallback;
-    aceOptions?: any;
     _ref: React.RefObject<HTMLDivElement>;
 };
 
@@ -22,9 +14,11 @@ class EditorContainer extends React.Component<
     EditorContainerProps,
     EditorContainerState
 > {
-    private _editor?: MoroboxAIEditor.IEditor;
+    private _editor?: MoroboxAIEditorSDK.IEditor;
 
     componentDidMount(): void {
+        if (this._editor !== undefined) return;
+
         this._editor = _init({
             element: this.props._ref.current!,
             language: this.props.language,
@@ -32,11 +26,11 @@ class EditorContainer extends React.Component<
             value: this.props.value,
             width: this.props.width,
             height: this.props.height,
-            onLoad: this.props.onLoad,
-            onUnload: this.props.onUnload,
+            onRun: this.props.onRun,
+            onStop: this.props.onStop,
             onLanguageChanged: this.props.onLanguageChanged,
             aceOptions: this.props.aceOptions
-        }) as MoroboxAIEditor.IEditor;
+        }) as MoroboxAIEditorSDK.IEditor;
     }
 
     componentWillUnmount(): void {
@@ -48,10 +42,7 @@ class EditorContainer extends React.Component<
 
     render() {
         return (
-            <div
-                className={"mai-editor " + (this.props.className || "")}
-                ref={this.props._ref}
-            />
+            <div className={this.props.className ?? ""} ref={this.props._ref} />
         );
     }
 }
