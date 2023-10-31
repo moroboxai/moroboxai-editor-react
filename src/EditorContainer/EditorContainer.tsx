@@ -31,6 +31,7 @@ class EditorContainer extends React.Component<
             onLanguageChanged: this.props.onLanguageChanged,
             aceOptions: this.props.aceOptions
         }) as MoroboxAIEditorSDK.IEditor;
+        this._editor.resize();
     }
 
     componentWillUnmount(): void {
