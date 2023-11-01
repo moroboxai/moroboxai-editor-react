@@ -1,9 +1,12 @@
 import React from "react";
 import EditorContainer from "../EditorContainer";
+import * as MoroboxAIEditorSDK from "moroboxai-editor-sdk";
 import * as MoroboxAIEditor from "moroboxai-editor-web";
 
 type EditorProps = MoroboxAIEditor.EditorOptions & {
     className?: string;
+    onMount?: (editor: MoroboxAIEditorSDK.IEditor) => void;
+    onUnmount?: (editor: MoroboxAIEditorSDK.IEditor) => void;
 };
 
 type EditorState = {};

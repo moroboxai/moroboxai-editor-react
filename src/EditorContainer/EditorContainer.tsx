@@ -5,6 +5,8 @@ import { init as _init } from "moroboxai-editor-web";
 
 type EditorContainerProps = MoroboxAIEditor.EditorOptions & {
     className?: string;
+    onMount?: (editor: MoroboxAIEditorSDK.IEditor) => void; // called when the component did mount
+    onUnmount?: (editor: MoroboxAIEditorSDK.IEditor) => void; // called when the component did unmount
     _ref: React.RefObject<HTMLDivElement>;
 };
 
@@ -31,13 +33,21 @@ class EditorContainer extends React.Component<
             onLanguageChanged: this.props.onLanguageChanged,
             aceOptions: this.props.aceOptions
         }) as MoroboxAIEditorSDK.IEditor;
-        this._editor.resize();
+
+        if (this.props.onMount !== undefined) {
+            this.props.onMount(this._editor);
+        }
     }
 
     componentWillUnmount(): void {
         if (this._editor !== undefined) {
+            const editor = this._editor;
             this._editor.remove();
             this._editor = undefined;
+
+            if (this.props.onUnmount !== undefined) {
+                this.props.onUnmount(editor);
+            }
         }
     }
 
